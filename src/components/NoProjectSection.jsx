@@ -1,4 +1,4 @@
-export default function NoProjectSection({onCreateProject}) {
+export default function NoProjectSection({onShow}) {
   return (
     <section className="flex flex-col justify-center items-center flex-1 bg-slate-100">
       <div className="flex flex-col justify-center items-center mb-10">
@@ -12,7 +12,7 @@ export default function NoProjectSection({onCreateProject}) {
           Select a project or get started with a new one
         </h3>
         <button className="mt-4 px-6 py-2 bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 active:scale-95 transition-transform duration-150"
-        onClick={onCreateProject}>
+        onClick={onShow}>
           Create new Project
         </button>
       </div>
