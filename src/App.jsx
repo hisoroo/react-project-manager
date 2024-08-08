@@ -3,11 +3,19 @@ import CreateProjectSection from "./components/CreateProjectSection";
 import { useState } from "react";
 
 function App() {
-  const [projectCreated, setProjectCreated] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [showCreateProject, setShowCreateProject] = useState(false);
 
-  const handleCreateProject = () => {
-    setProjectCreated(true);
+  const handleCreateProject = (projectData) => {
+    setProjects([...projects, projectData]);
+    
+    setShowCreateProject(false);
   };
+
+  const handleCancel = () => {
+    setShowCreateProject(false);
+  };
+
   return (
     <div className="flex h-screen w-screen">
       <section className="flex flex-col items-center w-1/4 bg-purple-400 rounded-tr-lg rounded-br-lg">
@@ -21,10 +29,13 @@ function App() {
           </button>
         </div>
       </section>
-      {projectCreated ? (
-        <CreateProjectSection/>
+      {showCreateProject ? (
+        <CreateProjectSection
+          onCreateProject={handleCreateProject}
+          onCancel={handleCancel}
+        />
       ) : (
-        <NoProjectSection onCreateProject={handleCreateProject} />
+        <NoProjectSection onShow={() => setShowCreateProject(true)} />
       )}
     </div>
   );
