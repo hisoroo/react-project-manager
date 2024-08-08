@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+const commonButtonClasses = "text-sm text-red-500 hover:text-red-700 ml-auto";
+const commonListItemClasses = "bg-white text-purple-500 rounded-lg shadow-md p-2 mt-4 mb-4 font-semibold cursor-pointer hover:bg-gray-100 flex justify-between items-center";
+
 export default function ProjectsSection({
   projects,
   onAddProject,
@@ -31,12 +34,12 @@ export default function ProjectsSection({
         {projects.map((project, index) => (
           <li
             key={index}
-            className="bg-white text-purple-500 rounded-lg shadow-md p-2 mt-4 mb-4 font-semibold cursor-pointer hover:bg-gray-100 flex justify-between items-center"
+            className={commonListItemClasses}
             onClick={() => onProjectClick(project)}
           >
             <span>{project.title}</span>
             <button
-              className="text-sm text-red-500 hover:text-red-700 ml-auto"
+              className={commonButtonClasses}
               onClick={() => handleDeleteClick(project)}
             >
               Delete

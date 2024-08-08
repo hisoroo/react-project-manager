@@ -1,5 +1,8 @@
 import { useRef } from "react";
 
+const commonInputClasses = "mb-4 p-2 border border-gray-300 rounded-lg w-full focus:border-purple-500 focus:ring-purple-500";
+const commonButtonClasses = "px-4 py-2 rounded-lg shadow-md transition-colors duration-150 text-white";
+
 export default function CreateProjectSection({ onCreateProject, onCancel }) {
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -30,7 +33,7 @@ export default function CreateProjectSection({ onCreateProject, onCancel }) {
         <input
           id="title"
           type="text"
-          className="mb-4 p-2 border border-gray-300 rounded-lg w-full focus:border-purple-500 focus:ring-purple-500"
+          className={commonInputClasses}
           ref={titleRef}
           required
         />
@@ -42,7 +45,7 @@ export default function CreateProjectSection({ onCreateProject, onCancel }) {
         </label>
         <textarea
           id="description"
-          className="mb-4 p-2 border border-gray-300 rounded-lg w-full h-20 focus:border-purple-500 focus:ring-purple-500"
+          className={`${commonInputClasses} h-20`}
           ref={descriptionRef}
           required
         ></textarea>
@@ -55,20 +58,20 @@ export default function CreateProjectSection({ onCreateProject, onCancel }) {
         <input
           id="date"
           type="date"
-          className="mb-4 p-2 border border-gray-300 rounded-lg w-full focus:border-purple-500 focus:ring-purple-500"
+          className={commonInputClasses}
           ref={dateRef}
           required
         />
         <div className="flex justify-end space-x-4 w-full mt-6">
           <button
             type="submit"
-            className="px-4 py-2 bg-purple-500 text-white rounded-lg shadow-md hover:bg-purple-600 transition-colors duration-150"
+            className={`${commonButtonClasses} bg-purple-500 hover:bg-purple-600`}
           >
             Create Project
           </button>
           <button
             type="button"
-            className="px-4 py-2 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-150"
+            className={`${commonButtonClasses} bg-gray-500 hover:bg-gray-600`}
             onClick={onCancel}
           >
             Cancel
