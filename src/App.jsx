@@ -1,14 +1,15 @@
 import NoProjectSection from "./components/NoProjectSection";
 import CreateProjectSection from "./components/CreateProjectSection";
-import ProjectsSection from "./components/AllProjectsSection";
+import AllProjectsSection from "./components/AllProjectsSection";
 import ProjectDetailsSection from "./components/ProjectDetailsSection";
 import { useState } from "react";
-import { set } from "date-fns";
 
 function App() {
   const [projects, setProjects] = useState([]);
   const [activeSection, setActiveSection] = useState("noProject");
   const [selectedProject, setSelectedProject] = useState(null);
+
+  const handleAddProject = () => setActiveSection("createProject");
 
   const handleCreateProject = (projectData) => {
     setProjects([...projects, projectData]);
@@ -21,10 +22,7 @@ function App() {
 
   const handleDeleteProject = (projectToDelete) => {
     setProjects(projects.filter((project) => project !== projectToDelete));
-    if (selectedProject === projectToDelete) {
-      setSelectedProject(null);
-      setActiveSection("noProject");
-    }
+    setActiveSection("noProject");
   };
 
   const handleProjectClick = (project) => {
@@ -34,9 +32,9 @@ function App() {
 
   return (
     <div className="flex h-screen w-screen">
-      <ProjectsSection
+      <AllProjectsSection
         projects={projects}
-        onAddProject={() => setActiveSection("createProject")}
+        onAddProject={handleAddProject}
         onDeleteProject={handleDeleteProject}
         onProjectClick={handleProjectClick}
       />
@@ -47,7 +45,7 @@ function App() {
         />
       )}
       {activeSection === "noProject" && (
-        <NoProjectSection onShow={() => setActiveSection("createProject")} />
+        <NoProjectSection onAddProject={handleAddProject} />
       )}
       {activeSection === "projectDetails" && selectedProject &&(
         <ProjectDetailsSection project={selectedProject} />
