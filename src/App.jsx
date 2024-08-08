@@ -3,41 +3,55 @@ import CreateProjectSection from "./components/CreateProjectSection";
 import ProjectsSection from "./components/AllProjectsSection";
 import ProjectDetailsSection from "./components/ProjectDetailsSection";
 import { useState } from "react";
+import { set } from "date-fns";
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [showCreateProject, setShowCreateProject] = useState(false);
+  const [activeSection, setActiveSection] = useState("noProject");
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const handleCreateProject = (projectData) => {
     setProjects([...projects, projectData]);
-    setShowCreateProject(false);
+    setActiveSection("noProject");
   };
 
   const handleCancel = () => {
-    setShowCreateProject(false);
+    setActiveSection("noProject");
   };
 
   const handleDeleteProject = (projectToDelete) => {
     setProjects(projects.filter((project) => project !== projectToDelete));
+    if (selectedProject === projectToDelete) {
+      setSelectedProject(null);
+      setActiveSection("noProject");
+    }
   };
 
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+    setActiveSection("projectDetails");
+  };
 
   return (
     <div className="flex h-screen w-screen">
       <ProjectsSection
         projects={projects}
-        onAddProject={() => setShowCreateProject(true)}
+        onAddProject={() => setActiveSection("createProject")}
         onDeleteProject={handleDeleteProject}
-        onProjectClick={()=>{}}
+        onProjectClick={handleProjectClick}
       />
-      {showCreateProject ? (
+      {activeSection === "createProject" && (
         <CreateProjectSection
           onCreateProject={handleCreateProject}
           onCancel={handleCancel}
         />
-      ):
-        <NoProjectSection onShow={() => setShowCreateProject(true)} />
-    }
+      )}
+      {activeSection === "noProject" && (
+        <NoProjectSection onShow={() => setActiveSection("createProject")} />
+      )}
+      {activeSection === "projectDetails" && selectedProject &&(
+        <ProjectDetailsSection project={selectedProject} />
+      )}
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default function ProjectsSection({
           <li
             key={index}
             className="bg-white text-purple-500 rounded-lg shadow-md p-2 mt-4 mb-4 font-semibold cursor-pointer hover:bg-gray-100 flex justify-between items-center"
-            onClick={() => {}}
+            onClick={() => onProjectClick(project)}
           >
             <span>{project.title}</span>
             <button
